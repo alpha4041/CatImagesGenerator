@@ -18,8 +18,9 @@ def welcome_message(bot, message):
 
 @bot.on_message(filters.command("cat", prefixes=["/", ".", "!"]))
 def cat_generator(bot, message):
+    query = " ".join(message.command[1:])
     r = requests.get(
-        "https://api.thecatapi.com/v1/breeds/search?q=" + message.command[1:])
+        "https://api.thecatapi.com/v1/breeds/search?q=" + query)
     breed = r.json()["id"]
     breedimageurl = requests.get(
         "https://api.thecatapi.com/images/search?breed_id=" + breed)
