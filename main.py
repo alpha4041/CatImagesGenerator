@@ -13,7 +13,7 @@ bot = Client("catgeneratorbot", api_id, api_hash, bot_token=bot_token)
 @bot.on_message(filters.command("start"))
 def welcome_message(bot, message):
     bot.send_message(
-        message.chat.id, "Welcome to Cat Images Generator Bot.\nWith /cat you get random pictures of cats.\nThis bot is made by @alph4")
+        message.chat.id, "Welcome to Cat Images Generator Bot.\nWith /cat you get random pictures of cats.\nThis bot is made by @alph4\nJoin @alph4chat to report any problem or suggest a feature.\nThe source code of the bot is open source! Check it: https://github.com/alpha4041/CatImagesGenerator")
 
 
 @bot.on_message(filters.command("cat"))
@@ -24,6 +24,15 @@ def cat_generator(bot, message):
     open(filename, "wb").write(photo)
     message.reply_photo(filename, quote=True)
     os.remove(filename)
+
+
+@bot.on_message(filters.command("neko"))
+def neko_generator(bot, message):
+    r = requests.get("https://neko-love.xyz/api/v1/" + "neko")
+    photo = requests.get(r.json()["url"])
+    filename = "neko.jpg"
+    open(filename, "wb").write(photo)
+    message.reply_photo(filename, quote=True)
 
 
 bot.run()
