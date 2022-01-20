@@ -13,7 +13,7 @@ bot = Client("catgeneratorbot", api_id, api_hash, bot_token=bot_token)
 @bot.on_message(filters.command("start"))
 def welcome_message(bot, message):
     bot.send_message(
-        message.chat.id, "Welcome to Cat Images Generator Bot.\nWith /cat you get random pictures of cats.\nThis bot is made by @alph4\nJoin @alph4chat to report any problem or suggest a feature.\nThe source code of the bot is open source! Check it: https://github.com/alpha4041/CatImagesGenerator")
+        message.chat.id, "Welcome to Cat Images Generator Bot.\nWith /cat you get random pictures of cats and with /neko pictures of anime girls with cat ears.\nThis bot is made by @alph4\nJoin @alph4chat to report any problem or suggest a feature.\nThe source code of the bot is open source! Check it: https://github.com/alpha4041/CatImagesGenerator")
 
 
 @bot.on_message(filters.command("cat"))
