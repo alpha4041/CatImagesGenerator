@@ -13,7 +13,7 @@ bot = Client("catgeneratorbot", api_id, api_hash, bot_token=bot_token)
 @bot.on_message(filters.command("start"))
 def welcome_message(bot, message):
     bot.send_message(
-        message.chat.id, "Welcome to Cat Images Generator Bot.\nWith /cat you get random pictures of cats.\nThe bot is made by @alph4")
+        message.chat.id, "Welcome to Cat Images Generator Bot.\nWith /cat you get random pictures of cats.\nThis bot is made by @alph4")
 
 
 @bot.on_message(filters.command("cat"))
