@@ -28,8 +28,8 @@ def cat_generator(bot, message):
 
 @bot.on_message(filters.command("neko"))
 def neko_generator(bot, message):
-    r = requests.get("https://neko-love.xyz/api/v1/" + "neko")
-    photo = requests.get(r.json()["url"])
+    r = requests.get("https://neko-love.xyz/api/v1/neko")
+    photo = requests.get(r.json()["url"]).content
     filename = "neko.jpg"
     open(filename, "wb").write(photo)
     message.reply_photo(filename, quote=True)
