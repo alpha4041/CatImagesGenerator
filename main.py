@@ -16,7 +16,7 @@ def welcome_message(bot, message):
         message.chat.id, "Welcome to Cat Images Generator Bot.\nWith /cat you get random pictures of cats and with /neko pictures of anime girls with cat ears.\nThis bot is made by @alph4\nJoin @alph4chat to report any problem or suggest a feature.\nThe source code of the bot is open source! Check it: https://github.com/alpha4041/CatImagesGenerator")
 
 
-@bot.on_message(filters.command("cat"))
+@bot.on_message(filters.command("cat", prefixes=["/", ".", "!"]))
 def cat_generator(bot, message):
     filename = "cat.jpg"
     url = "https://cataas.com/cat"
@@ -26,7 +26,7 @@ def cat_generator(bot, message):
     os.remove(filename)
 
 
-@bot.on_message(filters.command("neko"))
+@bot.on_message(filters.command("neko", prefixes=["/", ".", "!"]))
 def neko_generator(bot, message):
     r = requests.get("https://neko-love.xyz/api/v1/neko")
     photo = requests.get(r.json()["url"]).content
