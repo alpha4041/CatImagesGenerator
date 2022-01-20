@@ -1,5 +1,5 @@
 # CatImagesGenerator
-A Telegram Bot made with Pyrogram that generates random images of cats and anime girls with cat ears.
+A Telegram Bot made with Pyrogram that generates random images of cats, anime girls with cat ears and shibas.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/alpha4041/CatImagesGenerator)
 
