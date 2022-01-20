@@ -1,0 +1,25 @@
+{
+  "name": "CatImagesGeneratorBot",
+  "description": "A Pyrogram bot, that generates random cat images.",
+  "repository": "https://github.com/alpha4041/CatImagesGeneratorBot",
+  "logo": "https://telegra.ph/file/f4da3de2986699de91273.png",
+  "keywords": ["python", "pyrogram", "telegram", "bot", "cats"],
+  "image": "heroku/python",
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "env": {
+    "API_ID": {
+      "description": "App api_id from https://my.telegram.org"
+    },
+    "API_HASH": {
+      "description": "App api_hash from https://my.telegram.org"
+    },
+    "TOKEN": {
+      "description": "Bot token from https://t.me/BotFather"
+    }
+  }
+}
