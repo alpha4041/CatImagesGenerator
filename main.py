@@ -20,10 +20,10 @@ def welcome_message(bot, message):
 def cat_generator(bot, message):
     query = " ".join(message.command[1:])
     r = requests.get(
-        "https://api.thecatapi.com/v1/breeds/search?q=" + query)
+        "https://api.thecatapi.com/v1/breeds/search?q=" + query).content
     breed = r.json()["id"]
     breedimageurl = requests.get(
-        "https://api.thecatapi.com/images/search?breed_id=" + breed)
+        "https://api.thecatapi.com/images/search?breed_id=" + breed).content
     if r.status_code != 200:
         print("Error in Cat API")
         bot.send_message(1833693304, "Error occured in Cat API!")
