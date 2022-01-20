@@ -7,7 +7,7 @@ api_id = int(environ["API_ID"])
 api_hash = environ["API_HASH"]
 bot_token = environ["TOKEN"]
 
-bot = Client("catgeneratorbot", api_id, api_hash, bot_token)
+bot = Client("catgeneratorbot", api_id, api_hash, bot_token=bot_token)
 
 
 @bot.on_message(filters.command("start"))
