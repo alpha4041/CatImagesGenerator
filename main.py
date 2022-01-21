@@ -1,4 +1,5 @@
 from pyrogram import Client, filters
+from pyrogram.types import (InlineKeyboardMarkup, InlineKeyboardButton)
 import requests
 import os
 from os import environ
@@ -8,6 +9,7 @@ api_id = int(environ["API_ID"])
 api_hash = environ["API_HASH"]
 bot_token = environ["TOKEN"]
 thecatapi = environ["THECATAPI"]
+LOG_GROUP = environ["LOG_GROUP"]
 headers = {'x-api-key': thecatapi}
 bot = Client("catgeneratorbot", api_id, api_hash, bot_token=bot_token)
 
@@ -15,7 +17,33 @@ bot = Client("catgeneratorbot", api_id, api_hash, bot_token=bot_token)
 @bot.on_message(filters.command("start"))
 def welcome_message(bot, message):
     bot.send_message(
-        message.chat.id, "Welcome to Cat Images Generator Bot.\nWith /cat you get random pictures of cats, with /neko pictures of anime girls with cat ears and with /shiba pictures of Shibas.\nThis bot is made by @alph4\nJoin @alph4chat to report any problem or suggest a feature.\nThe source code of the bot is open source! Check it: https://github.com/alpha4041/CatImagesGenerator")
+        message.chat.id,
+        "Welcome to Cat Images Generator Bot, use /help for a list of the commands.\nThis bot is made by @alph4\nJoin @alph4chat to report any problem or suggest a feature.\nThe bot is open source!",
+        reply_markup=InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(
+                    "Source Code",
+                    url="https://github.com/alpha4041/CatImagesGenerator"
+                )
+                ],
+            [
+                InlineKeyboardButton(
+                    "Support Group",
+                    url="https://t.me/alph4chat"
+                )
+                ]
+        ])
+        )
+    bot.send_message(
+        LOG_GROUP,
+        "Bot started by" + {message.from_user.mention}
+    )
+
+
+@bot.on_message(filters.command("help", prefixes=["/", ".", "!"]))
+def help_message(bot, message):
+    message.reply_text(
+        "Bot usage:\n/cat {breed} to get a random cat image of the given breed with a description\n/neko to get a picture of an anime girl with cat ears\n/shiba to get a picture of a shiba.")
 
 
 @bot.on_message(filters.command("cat", prefixes=["/", ".", "!"]))
@@ -32,7 +60,8 @@ def cat_generator(bot, message):
     wikipediaurl = rlist[0]['wikipedia_url']
     if rforstatus.status_code != 200:
         print("Error in Cat API")
-        bot.send_message(1833693304, "Error occured in Cat API!")
+        bot.send_message(
+            LOG_GROUP, "Error occured in Cat API, check Heroku logs!")
         message.reply_text(
             "An error occured in the API, try again later or change your request.")
     else:
@@ -45,7 +74,7 @@ def cat_generator(bot, message):
         filename = "cat.jpg"
         open(filename, "wb").write(photo)
         message.reply_photo(filename, quote=True,
-                            caption=(description + "\n" + "Wikipedia:" + wikipediaurl))
+                            caption=(description + "\n" + "Wikipedia: " + wikipediaurl))
         os.remove(filename)
 
 
@@ -54,7 +83,7 @@ def neko_generator(bot, message):
     r = requests.get("https://neko-love.xyz/api/v1/neko")
     if r.status_code != 200:
         print("Error in Neko API")
-        bot.send_message(1833693304, "Error occured in Neko API!")
+        bot.send_message(LOG_GROUP, "Error occured in Neko API!")
         message.reply_text("An error occured in the API, try again later.")
     else:
         photo = requests.get(r.json()["url"]).content
@@ -69,7 +98,7 @@ def shiba_generator(bot, message):
     r = requests.get("https://dog.ceo/api/breed/shiba/images/random")
     if r.status_code != 200:
         print("Error in Shiba API")
-        bot.send_message(1833693304, "Error occured in Shiba API!")
+        bot.send_message(LOG_GROUP, "Error occured in Shiba API!")
         message.reply_text("An error occured in the API, try again later.")
     else:
         photo = requests.get(r.json()["message"]).content
