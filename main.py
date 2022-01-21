@@ -28,7 +28,8 @@ def cat_generator(bot, message):
     breed = rlist[0]['id']
     description = rlist[0]['description']
     wikipediaurl = rlist[0]['wikipedia_url']
-    if r.status_code != 200:
+    if requests.get(
+        "https://api.thecatapi.com/v1/breeds/search?q=" + query, headers=headers) != 200:
         print("Error in Cat API")
         bot.send_message(1833693304, "Error occured in Cat API!")
         bot.reply_text(

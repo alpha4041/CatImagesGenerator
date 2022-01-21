@@ -20,6 +20,9 @@
     },
     "TOKEN": {
       "description": "Bot token from https://t.me/BotFather"
+    },
+    "THECATAPI": {
+      "description": "You can get it from https://thecatapi.com"
     }
   }
 }
