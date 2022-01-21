@@ -23,16 +23,17 @@ def cat_generator(bot, message):
     query = " ".join(message.command[1:])
     r = requests.get(
         "https://api.thecatapi.com/v1/breeds/search?q=" + query, headers=headers).content
+    rforstatus = requests.get(
+            "https://api.thecatapi.com/v1/breeds/search?q=" + query, headers=headers)
     rdecoded = r.decode()
     rlist = json.loads(rdecoded)
     breed = rlist[0]['id']
     description = rlist[0]['description']
     wikipediaurl = rlist[0]['wikipedia_url']
-    if requests.get(
-        "https://api.thecatapi.com/v1/breeds/search?q=" + query, headers=headers) != 200:
+    if rforstatus.status_code != 200:
         print("Error in Cat API")
         bot.send_message(1833693304, "Error occured in Cat API!")
-        bot.reply_text(
+        message.reply_text(
             "An error occured in the API, try again later or change your request.")
     else:
         breedimageresponse = requests.get(
@@ -54,7 +55,7 @@ def neko_generator(bot, message):
     if r.status_code != 200:
         print("Error in Neko API")
         bot.send_message(1833693304, "Error occured in Neko API!")
-        bot.reply_text("An error occured in the API, try again later.")
+        message.reply_text("An error occured in the API, try again later.")
     else:
         photo = requests.get(r.json()["url"]).content
         filename = "neko.jpg"
@@ -69,7 +70,7 @@ def shiba_generator(bot, message):
     if r.status_code != 200:
         print("Error in Shiba API")
         bot.send_message(1833693304, "Error occured in Shiba API!")
-        bot.reply_text("An error occured in the API, try again later.")
+        message.reply_text("An error occured in the API, try again later.")
     else:
         photo = requests.get(r.json()["message"]).content
         filename = "shiba.jpg"
