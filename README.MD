@@ -9,6 +9,7 @@ A Telegram Bot made with Pyrogram that:
 ### Requirements:
 - Bot token (get it from @botfather)
 - API_ID and API_HASH (get it from [my.telegram.org](https://my.telegram.org))
+- LOG_GROUP (create a group for logging and get the ID)
 - THECATAPI API key (get it from [TheCatApi.com](https://thecatapi.com/signup))
 
 ## Used APIs:
